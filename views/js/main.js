@@ -451,17 +451,12 @@ var resizePizzas = function(size) {
   function changePizzaSizes(size) {
     //don't query randomPizzaContainer every time
     //batch styles and set them all at once.
-    var pizzaContainer = document.getElementsByClassName("randomPizzaContainer");
+    var pizzaContainer = document.querySelectorAll(".randomPizzaContainer");
     var length = pizzaContainer.length;
-
-    if( length <= 0 ) {
-      return ;
-    }
     var widthContainer = [];
-    //don't call determineDx every time
-    var dx = determineDx(pizzaContainer[0], size);
 
     for (var i = 0; i < length; i++) {
+      var dx = determineDx(pizzaContainer[i], size);
       widthContainer.push( pizzaContainer[i].offsetWidth + dx );
 
       //var newwidth = (pizzaContainer[i].offsetWidth + dx) + 'px';
@@ -485,9 +480,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-//don't call getElementById every time.
-var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
+  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -519,7 +513,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.getElementsByClassName('mover');
+  var items = document.querySelectorAll('.mover');
   //set document.body.scrollTop in a varible to avoid access DOM every time
   var scrollTop = document.body.scrollTop;
   var delta = scrollTop / 1250;
@@ -543,14 +537,10 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
-// Generates them dynamically
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  var rows = (int)(window.innerHeight / 100);
-  var cols = (int)(window.innerWidth / 73.333);
-  var num = rows * cols;
-  for (var i = 0; i < num; i++) {
+  for (var i = 0; i < 200; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
