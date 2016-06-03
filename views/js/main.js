@@ -545,6 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var numberOfPizzas = (Math.ceil)(window.innerHeight / s * cols);
   //console.log( 'num:' + numberOfPizzas );
 
+  //do not init too many pizzas because the height of view is limited
   for (var i = 0; i < numberOfPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
